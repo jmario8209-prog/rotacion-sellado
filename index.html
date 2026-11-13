@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Rotaci&#243;n Sellado</title>
+<style>
+:root{--bg:#f4f6f9;--card:#ffffff;--ink:#1d2433;--muted:#5f6b7d;--line:#dde3ea;--brand:#1f4e78;--brand-ink:#ffffff;--ok:#e8f3ec;--ok-ink:#1e6b3a;--warn:#fff4d6;--warn-ink:#7a5a00;color-scheme:light}
+@media (prefers-color-scheme: dark){:root{--bg:#11161d;--card:#1a212b;--ink:#e8edf3;--muted:#9aa7b8;--line:#2b3542;--brand:#3d7cb8;--brand-ink:#ffffff;--ok:#16301f;--ok-ink:#8fd6a6;--warn:#352b0c;--warn-ink:#f2d27a;color-scheme:dark}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+header{background:var(--brand);color:var(--brand-ink);padding:calc(env(safe-area-inset-top,0px) + 18px) 18px 22px}
+header h1{margin:0;font-size:1.25rem;font-weight:700}
+header p{margin:6px 0 0;font-size:.95rem;opacity:.9}
+main{max-width:560px;margin:0 auto;padding:16px 16px calc(env(safe-area-inset-bottom,0px) + 32px)}
+label{display:block;font-weight:600;margin:4px 0 8px}
+input{width:100%;font-size:1.1rem;padding:14px 14px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);outline:none}
+input:focus{border-color:var(--brand)}
+.hint{color:var(--muted);font-size:.9rem;margin:8px 2px 0}
+.list{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.opt{display:block;width:100%;text-align:left;font-size:1rem;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);cursor:pointer}
+.card{margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.name{font-size:1.05rem;font-weight:700;margin:0 0 12px}
+.puesto{font-size:1.5rem;font-weight:800;line-height:1.2;margin:0 0 14px;color:var(--brand)}
+.row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.row span:first-child{color:var(--muted)}
+.row span:last-child{font-weight:700;text-align:right}
+.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--ok);color:var(--ok-ink);font-weight:700;font-size:.9rem}
+.off{background:var(--warn);color:var(--warn-ink)}
+footer{color:var(--muted);font-size:.8rem;text-align:center;margin-top:28px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Rotaci&#243;n &#225;rea de Sellado</h1>
+  <p id="semana"></p>
+</header>
+<main>
+  <label for="q">Escribe tu nombre o apellido</label>
+  <input id="q" type="search" autocomplete="off" placeholder="Ej: Ga&#241;an Angela">
+  <p class="hint">Escribe al menos 3 letras.</p>
+  <div id="res"></div>
+  <footer id="pie"></footer>
+</main>
+<script>
+const DATA = {"semana": "Semana del 16/11/2026 al 21/11/2026", "generado": "13/11/2026 23:21", "personas": [{"n": "CASTILLO MURILLO JOHAN ALFREDO", "p": "EMBALADOR", "l": "ULMA 1", "t": "Turno 1"}, {"n": "RIOS CARDONA YENNY TATIANA", "p": "PESADOR 1", "l": "ULMA 1", "t": "Turno 1"}, {"n": "LOPEZ VASQUEZ JHON MARIO", "p": "PESADOR 2", "l": "ULMA 1", "t": "Turno 1"}, {"n": "GA\u00d1AN BOTERO YEISON ALEJANDRO", "p": "AJUSTADOR DE PESO, COLOCAR ETIQUETA", "l": "ULMA 1", "t": "Turno 1"}, {"n": "RUIZ MONTA\u00d1EZ JHON FREDDY", "p": "MUSLO", "l": "ULMA 1", "t": "Turno 1"}, {"n": "CASTA\u00d1EDA BERNAL EDGAR GERMAN", "p": "CONTRAMUSLO", "l": "ULMA 1", "t": "Turno 1"}, {"n": "TORREALBA OCHOA FLORENCIO ANTONIO", "p": "ALA", "l": "ULMA 1", "t": "Turno 1"}, {"n": "CADENA MONCADA BREINEY FERNEY", "p": "PECHUGA", "l": "ULMA 1", "t": "Turno 1"}, {"n": "SOSA BEDOYA MARIA SALOME", "p": "MAQUINISTA", "l": "ULMA 1", "t": "Turno 1"}, {"n": "RUBIO MARIN JUAN DAVID", "p": "EMBALADOR", "l": "ULMA 2", "t": "Turno 1"}, {"n": "VALENCIA MO\u00d1A ELBER", "p": "PESADOR 1", "l": "ULMA 2", "t": "Turno 1"}, {"n": "HERRERA GOLINDANO ANGEL ADOLFO", "p": "AJUSTADOR DE PESO, COLOCAR ETIQUETA", "l": "ULMA 2", "t": "Turno 1"}, {"n": "MOSQUERA PINO JHON ESTIWAR", "p": "MUSLO", "l": "ULMA 2", "t": "Turno 1"}, {"n": "CUERO ZAMBRANO EDISON", "p": "CONTRAMUSLO", "l": "ULMA 2", "t": "Turno 1"}, {"n": "GA\u00d1AN LADINO ANGELA LILIANA", "p": "ALA", "l": "ULMA 2", "t": "Turno 1"}, {"n": "BETANCUR VARELA YURANI ALEXANDRA", "p": "PECHUGA", "l": "ULMA 2", "t": "Turno 1"}, {"n": "FLOREZ OSCAR DE JESUS", "p": "MAQUINISTA", "l": "ULMA 2", "t": "Turno 1"}, {"n": "GIRALDO BUSTOS JOHN FREDY", "p": "EMBALADOR", "l": "ULMA 1", "t": "Turno 2"}, {"n": "LOPEZ AREIZA ELCY YARENY", "p": "PESADOR 1", "l": "ULMA 1", "t": "Turno 2"}, {"n": "CARDONA QUINTERO WILSON", "p": "PESADOR 2", "l": "ULMA 1", "t": "Turno 2"}, {"n": "MOLINA ORTIZ ANYI YULIANA", "p": "AJUSTADOR DE PESO, COLOCAR ETIQUETA", "l": "ULMA 1", "t": "Turno 2"}, {"n": "REYES GUARACHE MARIO DAVID", "p": "MUSLO", "l": "ULMA 1", "t": "Turno 2"}, {"n": "VERGARA GIL YEISON", "p": "CONTRAMUSLO", "l": "ULMA 1", "t": "Turno 2"}, {"n": "RODAS PESCADOR JUDY NATALIA", "p": "ALA", "l": "ULMA 1", "t": "Turno 2"}, {"n": "GARCIA URBINA RUTSELIS DEL CARMEN", "p": "PECHUGA", "l": "ULMA 1", "t": "Turno 2"}, {"n": "MONTOYA VARGAS DEISON LISBEY", "p": "MAQUINISTA", "l": "ULMA 1", "t": "Turno 2"}, {"n": "MALDONADO FORERO OMAR ANDRES", "p": "EMBALADOR", "l": "ULMA 2", "t": "Turno 2"}, {"n": "RIOS RODAS LUZ ENID", "p": "PESADOR 2", "l": "ULMA 2", "t": "Turno 2"}, {"n": "NAGLES MOSQUERA JHORLADYS", "p": "AJUSTADOR DE PESO, COLOCAR ETIQUETA", "l": "ULMA 2", "t": "Turno 2"}, {"n": "CA\u00d1A MARQUEZ LUIS JAVIER", "p": "MUSLO", "l": "ULMA 2", "t": "Turno 2"}, {"n": "AGUDELO MONTOYA JUAN FERNANDO", "p": "CONTRAMUSLO", "l": "ULMA 2", "t": "Turno 2"}, {"n": "PIEDRAHITA GAY MARIA CAMILA", "p": "ALA", "l": "ULMA 2", "t": "Turno 2"}, {"n": "GARCIA DELGADO ANGIE PAOLA", "p": "PECHUGA", "l": "ULMA 2", "t": "Turno 2"}, {"n": "YANES SABINO RICHARD ASDRUBAL", "p": "MAQUINISTA", "l": "ULMA 2", "t": "Turno 2"}, {"n": "AGUDELO PE\u00d1A LUZ ADRIANA", "p": "AUXILIAR DE GESTION", "l": "PRICESMART", "t": "Pricesmart"}, {"n": "RAMIREZ VALENCIA DIDIER JULIAN", "p": "MAQUINISTA", "l": "PRICESMART", "t": "Pricesmart"}, {"n": "ARANGO CANO LUISA FERNANDA", "p": "COLOCAR ETIQUETA", "l": "PRICESMART", "t": "Pricesmart"}, {"n": "MARIN OSPINA NILTON AUGUSTO", "p": "EMBALADOR", "l": "PRICESMART", "t": "Pricesmart"}, {"n": "CHIQUITO VELASCO BAIRON", "p": "PESAR PRODUCTO TERMINADO", "l": "PRICESMART", "t": "Pricesmart"}, {"n": "OROPEZA MOYETON OSWALDO HUMBERTO", "p": "CANGILONES", "l": "PRICESMART", "t": "Pricesmart"}, {"n": "NIETO AGUDELO JHON ALEXANDER", "p": "CANGILONES", "l": "PRICESMART", "t": "Pricesmart"}, {"n": "IZQUIERDO IZQUIERDO DAIRON", "p": "CANGILONES", "l": "PRICESMART", "t": "Pricesmart"}, {"n": "RESTREPO ALBA", "p": "AUXILIAR DE GESTION", "l": "PUESTOS FIJOS", "t": "Turno 1"}, {"n": "RESTREPO MESA JOSE FERNEY", "p": "MARCACION", "l": "PUESTOS FIJOS", "t": "Turno 1"}, {"n": "D\u00c1VILA OSPINA JULIAN ANDR\u00c9S", "p": "MARCACION", "l": "PUESTOS FIJOS", "t": "Turno 1"}, {"n": "MOSQUERA MARTINEZ MARIBEL", "p": "ASEO", "l": "PUESTOS FIJOS", "t": "Turno 1"}, {"n": "CUESTA RENTERIA JUAN DANIEL", "p": "CANASTA (lunes, mi\u00e9rcoles y viernes) y TIRAR POR BANDA (martes, jueves y s\u00e1bado)", "l": "PUESTOS FIJOS", "t": "Turno 1"}, {"n": "VILLEGAS GARCIA YEFERSON", "p": "CANASTA (martes, jueves y s\u00e1bado) y TIRAR POR BANDA (lunes, mi\u00e9rcoles y viernes)", "l": "PUESTOS FIJOS", "t": "Turno 1"}, {"n": "MOSQUERA PEREA JUAN DAVID", "p": "RECIBIR CANASTA (lunes, mi\u00e9rcoles y viernes) y PATINADOR (martes, jueves y s\u00e1bado)", "l": "PUESTOS FIJOS", "t": "Turno 1"}, {"n": "GUERRERO NARVAEZ BRAYAN STIVEN", "p": "RECIBIR CANASTA (martes, jueves y s\u00e1bado) y PATINADOR (lunes, mi\u00e9rcoles y viernes)", "l": "PUESTOS FIJOS", "t": "Turno 1"}, {"n": "PINZON ALVAREZ CESAR AUGUSTO", "p": "MUESTREO Y CONTROL DE TEMPERATURA", "l": "PUESTOS FIJOS", "t": "Turno 1"}, {"n": "USMA TANGARIFE VICTOR MANUEL", "p": "ALISTAR AREA", "l": "PUESTOS FIJOS", "t": "Turno 1"}, {"n": "VELEZ LOPEZ JOHAN CAMILO", "p": "RECUPERADORES", "l": "PUESTOS FIJOS", "t": "Turno 1"}, {"n": "SUAREZ FRANCO LUIS GONZAGA", "p": "AUXILIAR DE GESTION", "l": "PUESTOS FIJOS", "t": "Turno 2"}, {"n": "LADINO TAPASCO VICTOR ANDREI", "p": "MARCACION", "l": "PUESTOS FIJOS", "t": "Turno 2"}, {"n": "LOAIZA ANDRES FELIPE", "p": "MARCACION", "l": "PUESTOS FIJOS", "t": "Turno 2"}, {"n": "CARVAJAL GALEANO JHOAN ALEXIS", "p": "ASEO", "l": "PUESTOS FIJOS", "t": "Turno 2"}, {"n": "VILLADA BATERO SANTIAGO", "p": "CANASTA (lunes, mi\u00e9rcoles y viernes) y TIRAR POR BANDA (martes, jueves y s\u00e1bado)", "l": "PUESTOS FIJOS", "t": "Turno 2"}, {"n": "RODRIGUEZ FARIAS JORGE LUIS", "p": "CANASTA (martes, jueves y s\u00e1bado) y TIRAR POR BANDA (lunes, mi\u00e9rcoles y viernes)", "l": "PUESTOS FIJOS", "t": "Turno 2"}, {"n": "CAMPO ZAMBRANO YEFERSON ANDRES", "p": "RECIBIR CANASTA (lunes, mi\u00e9rcoles y viernes) y PATINADOR (martes, jueves y s\u00e1bado)", "l": "PUESTOS FIJOS", "t": "Turno 2"}, {"n": "REALES LARA HECTOR GASTON", "p": "RECIBIR CANASTA (martes, jueves y s\u00e1bado) y PATINADOR (lunes, mi\u00e9rcoles y viernes)", "l": "PUESTOS FIJOS", "t": "Turno 2"}, {"n": "MOTATO BUENO NELSON DE JESUS", "p": "MUESTREO Y CONTROL DE TEMPERATURA", "l": "PUESTOS FIJOS", "t": "Turno 2"}, {"n": "CASTRILLON JOHAN SEBASTIAN", "p": "ALISTAR AREA", "l": "PUESTOS FIJOS", "t": "Turno 2"}, {"n": "JARAMILLO HERRERA URIEL EDILSON", "p": "RECUPERADORES", "l": "PUESTOS FIJOS", "t": "Turno 2"}, {"n": "ECHEVERRY JESUS ALBERTO", "p": "OPERARIOS ESPECIALISTAS", "l": "PUESTOS FIJOS", "t": "Turno 1"}, {"n": "SARMIENTO GRAJALES CRISTIAN DAVID", "p": "OPERARIOS ESPECIALISTAS", "l": "PUESTOS FIJOS", "t": "Turno 2"}, {"n": "MOSQUERA ESCARPETA LUIS ALBERTO", "p": "CONTADOR PRODUCTO IMPERFECTO", "l": "PUESTOS FIJOS", "t": "Turno 2"}, {"n": "VALENCIA GALEANO EULOGIO DE JESUS", "p": "EMBANDEJADOR", "l": "PRICESMART", "t": "Pricesmart", "m": "1"}, {"n": "GIRALDO GRANADA LUIS GONZAGA", "p": "EMBANDEJADOR", "l": "PRICESMART", "t": "Pricesmart", "m": "1"}, {"n": "ZAPATA JUAN ESTEBAN", "p": "EMBANDEJADOR", "l": "PRICESMART", "t": "Pricesmart", "m": "1"}, {"n": "RAMIREZ GALVEZ LAURA CAMILA", "p": "EMBANDEJADOR", "l": "PRICESMART", "t": "Pricesmart", "m": "1"}, {"n": "ARICAPA MONICA BIBIANA", "p": "EMBANDEJADOR", "l": "PRICESMART", "t": "Pricesmart", "m": "2"}, {"n": "MARQUEZ AGUDELO DIDIER ALEYCER", "p": "EMBANDEJADOR", "l": "PRICESMART", "t": "Pricesmart", "m": "2"}, {"n": "CULMA PE\u00d1A SINDY ALEXI", "p": "EMBANDEJADOR", "l": "PRICESMART", "t": "Pricesmart", "m": "2"}, {"n": "JORDAN JORDAN SAMIRA", "p": "EMBANDEJADOR", "l": "PRICESMART", "t": "Pricesmart", "m": "2"}, {"n": "VELASQUEZ FLOREZ JEAN CARLOS", "p": "EMBANDEJADOR", "l": "PRICESMART", "t": "Pricesmart", "m": "3"}, {"n": "PEREZ MENDOZA SIXTA GRISMAR", "p": "EMBANDEJADOR", "l": "PRICESMART", "t": "Pricesmart", "m": "3"}, {"n": "VELASCO MORALES ANA DERLY", "p": "EMBANDEJADOR", "l": "PRICESMART", "t": "Pricesmart", "m": "3"}, {"n": "CATA\u00d1O LONDO\u00d1O CHRISTIAN", "p": "EMBANDEJADOR", "l": "PRICESMART", "t": "Pricesmart", "m": "3"}, {"n": "BURGOS GOMEZ VANESSA", "p": "TIRILLADOR", "l": "IQF", "t": "Turno 1"}, {"n": "TORO RIVERA KEVIN ALEJANDRO", "p": "EMBALADOR", "l": "IQF", "t": "Turno 1"}, {"n": "RIOS OSPINA JAIME EDIBER", "p": "SELLAR BOLSA IQF", "l": "IQF", "t": "Turno 1"}, {"n": "VALENCIA MORALES JHON EDISON", "p": "PESAR PRODUCTO REFRIGERADO", "l": "IQF", "t": "Turno 1"}, {"n": "HIGUITA CARDONA FARLEY MALBERY", "p": "EMPACADOR", "l": "IQF", "t": "Turno 1"}, {"n": "AREVALO CASTELLANOS YEIMI LORENA", "p": "EMPACADOR", "l": "IQF", "t": "Turno 1"}, {"n": "LEMIR GALVIS MARIA CRISTINA", "p": "EMPACADOR", "l": "IQF", "t": "Turno 1"}, {"n": "QUINTERO POVEDA YASMIN ARELIS", "p": "EMPACADOR", "l": "IQF", "t": "Turno 1"}, {"n": "VELASQUEZ ROMERO LADY LAURA", "p": "EMPACADOR", "l": "IQF", "t": "Turno 1"}, {"n": "VEGA SANCHEZ YERALDYM", "p": "TIRILLADOR", "l": "IQF", "t": "Turno 2"}, {"n": "ZAPATA OLARTE DIEGO ALEJANDRO", "p": "EMBALADOR", "l": "IQF", "t": "Turno 2"}, {"n": "VANEGAS GALLEGO VALENTINA", "p": "SELLAR BOLSA IQF", "l": "IQF", "t": "Turno 2"}, {"n": "CASTA\u00d1EDA BA\u00d1OL JOHN ALEXANDER", "p": "PESAR PRODUCTO REFRIGERADO", "l": "IQF", "t": "Turno 2"}, {"n": "SALAZAR GOMEZ YURANY DANISA", "p": "EMPACADOR", "l": "IQF", "t": "Turno 2"}, {"n": "GASPAR YENNIFER CECILIA", "p": "EMPACADOR", "l": "IQF", "t": "Turno 2"}, {"n": "MARIN RIVERA GENNY PAOLA", "p": "EMPACADOR", "l": "IQF", "t": "Turno 2"}, {"n": "SANCHEZ MOSQUERA YENIS OMAIRA", "p": "EMPACADOR", "l": "IQF", "t": "Turno 2"}, {"n": "ALVAREZ MOSQUERA LAURA VANESSA", "x": 1}, {"n": "CALVO LADINO YHEDI MARIANA", "x": 1}, {"n": "FAJARDO BRITO LEIDY JOHANA", "x": 1}, {"n": "GARCIA CARDONA JUANITA", "x": 1}, {"n": "HERRERA PATI\u00d1O ALBA LUCIA", "x": 1}, {"n": "HIDALGO PARRAGA ARIANYS LORENA", "x": 1}, {"n": "LLANOS HERNANDEZ KATERIN", "x": 1}, {"n": "LOPEZ LOPEZ FEIVER DE JESUS", "x": 1}, {"n": "OCAMPO GA\u00d1AN XIMENA", "x": 1}, {"n": "TUBERQUIA USUGA TRICIA ALEJANDRA", "x": 1}, {"n": "VALENCIA RAIGOSA JUAN CAMILO", "x": 1}]};
+const $ = id => document.getElementById(id);
+function norm(s){return (s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toUpperCase().replace(/\s+/g," ").trim();}
+function esc(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));}
+function card(p){
+  if(p.x){return `<div class="card"><p class="name">${esc(p.n)}</p><span class="badge off">No programado esta semana</span><p class="hint">Si crees que es un error, consulta con tu supervisor.</p></div>`;}
+  let h = `<div class="card"><p class="name">${esc(p.n)}</p><p class="puesto">${esc(p.p)}</p>`;
+  h += `<div class="row"><span>L\u00ednea</span><span>${esc(p.l)}</span></div>`;
+  h += `<div class="row"><span>Turno</span><span>${esc(p.t)}</span></div>`;
+  if(p.m) h += `<div class="row"><span>Mesa</span><span>Mesa ${esc(p.m)}</span></div>`;
+  return h + `</div>`;
+}
+function buscar(){
+  const q = norm($("q").value);
+  const out = $("res");
+  if(q.length < 3){ out.innerHTML = ""; return; }
+  const toks = q.split(" ");
+  const hits = DATA.personas.filter(p => { const n = norm(p.n); return toks.every(t => n.includes(t)); });
+  if(!hits.length){ out.innerHTML = `<p class="hint">No encontramos ese nombre. Revisa c\u00f3mo lo escribiste.</p>`; return; }
+  if(hits.length === 1){ out.innerHTML = card(hits[0]); return; }
+  out.innerHTML = `<div class="list">` + hits.slice(0,15).map((p,i)=>`<button class="opt" data-i="${DATA.personas.indexOf(p)}">${esc(p.n)}</button>`).join("") + `</div>`;
+  out.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => { out.innerHTML = card(DATA.personas[+b.dataset.i]); }));
+}
+if(DATA){
+  $("semana").textContent = DATA.semana;
+  $("pie").textContent = "Actualizado: " + DATA.generado;
+  $("q").addEventListener("input", buscar);
+} else {
+  $("semana").textContent = "Sin datos";
+}
+</script>
+</body>
+</html>
